@@ -5,16 +5,23 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/thetsajeet/go-drop/handlers"
 )
 
 func main() {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("hello world"))
-	}).Methods("GET")
+	r.
+		HandleFunc("/", handlers.HandleHelloWorld).
+		Methods("GET")
 
-	log.Default().Println("Starting server on port: 8000")
+	r.
+		PathPrefix("/static/").
+		Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./public"))))
+
+	log.
+		Default().
+		Println("Starting server on port: 8000")
+
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
