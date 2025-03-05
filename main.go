@@ -19,6 +19,10 @@ func main() {
 		PathPrefix("/static/").
 		Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./public"))))
 
+	r.
+		HandleFunc("/ws/{roomID}", handlers.HandleWebSocket).
+		Methods("GET")
+
 	log.
 		Default().
 		Println("Starting server on port: 8000")
