@@ -1,31 +1,19 @@
 package main
 
 import (
-	"log"
-	"net/http"
+	"sync"
 
-	"github.com/gorilla/mux"
-	"github.com/thetsajeet/go-drop/handlers"
+	"github.com/gorilla/websocket"
+	"github.com/thetsajeet/go-drop/cmd/server"
+	"github.com/thetsajeet/go-drop/internal/config"
+	"github.com/thetsajeet/go-drop/internal/model/rooms"
 )
 
 func main() {
-	r := mux.NewRouter()
-
-	r.
-		HandleFunc("/", handlers.HandleHelloWorld).
-		Methods("GET")
-
-	r.
-		PathPrefix("/static/").
-		Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./public"))))
-
-	r.
-		HandleFunc("/ws/{roomID}", handlers.HandleWebSocket).
-		Methods("GET")
-
-	log.
-		Default().
-		Println("Starting server on port: 8000")
-
-	log.Fatal(http.ListenAndServe(":8000", r))
+	cfg := &config.AppConfig{
+		Rooms:     make(map[string]*rooms.Room, 0),
+		Upgrader:  websocket.Upgrader{},
+		RoomsLock: &sync.Mutex{},
+	}
+	server.StartServer(cfg)
 }

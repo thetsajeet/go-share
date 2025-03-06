@@ -1,4 +1,4 @@
-package handlers
+package hello
 
 import "net/http"
 
