@@ -3,10 +3,8 @@ package ws
 import (
 	"log"
 	"net/http"
-	"sync"
 
 	"github.com/gorilla/mux"
-	"github.com/gorilla/websocket"
 	"github.com/thetsajeet/go-drop/internal/config"
 	"github.com/thetsajeet/go-drop/internal/model/rooms"
 )
@@ -31,21 +29,12 @@ func HandleWebSocket(cfg *config.AppConfig) http.HandlerFunc {
 		cfg.RoomsLock.Lock()
 		room, exists := cfg.Rooms[roomID]
 		if !exists {
-			room = &rooms.Room{
-				ID:          roomID,
-				Connections: []*websocket.Conn{},
-				UploadLock:  &sync.Mutex{},
-			}
+			room = rooms.CreateRoom(roomID)
 			cfg.Rooms[roomID] = room
 		}
 		cfg.RoomsLock.Unlock()
 
-		room.UploadLock.Lock()
-		room.Connections = append(room.Connections, conn)
-		cfg.Rooms[roomID] = room
-		room.UploadLock.Unlock()
-
-		log.Default().Println("New client joined the room: ", roomID)
+		cfg.Rooms[roomID] = room.AddConnection(conn)
 
 		for {
 			_, msg, err := conn.ReadMessage()
