@@ -8,7 +8,8 @@ import (
 )
 
 type AppConfig struct {
-	Rooms     map[string]*rooms.Room
-	Upgrader  websocket.Upgrader
-	RoomsLock *sync.Mutex
+	Rooms        map[string]*rooms.Room
+	Upgrader     websocket.Upgrader
+	RoomsLock    *sync.Mutex
+	RStoragePath string
 }

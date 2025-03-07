@@ -11,9 +11,12 @@ import (
 
 func main() {
 	cfg := &config.AppConfig{
-		Rooms:     make(map[string]*rooms.Room, 0),
-		Upgrader:  websocket.Upgrader{},
-		RoomsLock: &sync.Mutex{},
+		Rooms:        make(map[string]*rooms.Room, 0),
+		Upgrader:     websocket.Upgrader{},
+		RoomsLock:    &sync.Mutex{},
+		RStoragePath: "",
 	}
+	cfg.InitConfig()
+
 	server.StartServer(cfg)
 }
