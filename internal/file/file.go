@@ -51,4 +51,31 @@ func HandleUploadFile(cfg *config.AppConfig) http.HandlerFunc {
 	}
 }
 
-func HandleDownloadFile(w http.ResponseWriter, r *http.Request) {}
+func HandleDownloadFile(cfg *config.AppConfig) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		roomID := vars["roomID"]
+		fileName := vars["fileName"]
+		if roomID == "" || fileName == "" {
+			http.Error(w, "room id and filename are required", http.StatusBadRequest)
+			return
+		}
+
+		filePath := filepath.Join(cfg.RStoragePath, roomID, fileName)
+		file, err := os.Open(filePath)
+		if err != nil {
+			http.Error(w, "file not found", http.StatusBadRequest)
+			return
+		}
+		defer file.Close()
+
+		w.Header().Set("Content-Disposition", "attachment; filename="+fileName)
+		w.Header().Set("Content-Type", "application/octet-stream")
+
+		_, err = io.Copy(w, file)
+		if err != nil {
+			http.Error(w, "error while downloading the file", http.StatusInternalServerError)
+			return
+		}
+	}
+}

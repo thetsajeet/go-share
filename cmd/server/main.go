@@ -31,7 +31,7 @@ func StartServer(cfg *config.AppConfig) {
 		Methods("POST")
 
 	r.
-		HandleFunc("/rooms/{roomID}/download/{fileName}", func(w http.ResponseWriter, r *http.Request) {}).
+		HandleFunc("/rooms/{roomID}/download/{fileName}", f.HandleDownloadFile(cfg)).
 		Methods("GET")
 
 	log.
