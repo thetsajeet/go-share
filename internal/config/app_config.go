@@ -4,7 +4,7 @@ import (
 	"sync"
 
 	"github.com/gorilla/websocket"
-	"github.com/thetsajeet/go-drop/internal/model/rooms"
+	"github.com/thetsajeet/go-share/internal/model/rooms"
 )
 
 type AppConfig struct {

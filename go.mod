@@ -1,4 +1,4 @@
-module github.com/thetsajeet/go-drop
+module github.com/thetsajeet/go-share
 
 go 1.23.6
 

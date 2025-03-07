@@ -1,7 +1,5 @@
 # Go Share
 
----
-
 ## About
 
 Go Share is a simple real-time file-sharing application built in `go`
@@ -25,8 +23,6 @@ Go-Share let's you create rooms with people, allow texts in real-time and share 
 > TODO
 
 ## Others
-
----
 
 ### Useful Tools for development
 

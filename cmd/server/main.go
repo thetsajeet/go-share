@@ -5,10 +5,10 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/thetsajeet/go-drop/internal/config"
-	f "github.com/thetsajeet/go-drop/internal/file"
-	"github.com/thetsajeet/go-drop/internal/hello.go"
-	ws "github.com/thetsajeet/go-drop/internal/websocket"
+	"github.com/thetsajeet/go-share/internal/config"
+	f "github.com/thetsajeet/go-share/internal/file"
+	"github.com/thetsajeet/go-share/internal/hello.go"
+	ws "github.com/thetsajeet/go-share/internal/websocket"
 )
 
 func StartServer(cfg *config.AppConfig) {

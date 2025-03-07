@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/thetsajeet/go-drop/internal/config"
-	"github.com/thetsajeet/go-drop/internal/model/rooms"
+	"github.com/thetsajeet/go-share/internal/config"
+	"github.com/thetsajeet/go-share/internal/model/rooms"
 )
 
 func HandleWebSocket(cfg *config.AppConfig) http.HandlerFunc {

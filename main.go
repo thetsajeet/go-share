@@ -4,9 +4,9 @@ import (
 	"sync"
 
 	"github.com/gorilla/websocket"
-	"github.com/thetsajeet/go-drop/cmd/server"
-	"github.com/thetsajeet/go-drop/internal/config"
-	"github.com/thetsajeet/go-drop/internal/model/rooms"
+	"github.com/thetsajeet/go-share/cmd/server"
+	"github.com/thetsajeet/go-share/internal/config"
+	"github.com/thetsajeet/go-share/internal/model/rooms"
 )
 
 func main() {

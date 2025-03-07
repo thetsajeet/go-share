@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 
 	"github.com/gorilla/mux"
-	"github.com/thetsajeet/go-drop/internal/config"
+	"github.com/thetsajeet/go-share/internal/config"
 )
 
 func HandleUploadFile(cfg *config.AppConfig) http.HandlerFunc {
